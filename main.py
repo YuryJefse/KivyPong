@@ -1,9 +1,12 @@
+import kivy
+kivy.require('1.8.0') # replace with your current kivy version !
 from kivy.app import App
 from kivy.uix.widget import Widget
-from kivy.properties import NumericProperty, ReferenceListProperty, \ObjectProperty
+from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty
 from kivy.vector import Vector
 from kivy.clock import Clock
 from random import randint
+from kivy.uix.label import Label
 
 class PongPaddle(Widget):
 	score = NumericProperty(0)
@@ -15,7 +18,7 @@ class PongPaddle(Widget):
 			bounced = Vector(-1 * vx, vy)
 			vel = bounced * 1.1
 			ball.velocity = vel.x, vel.y + offset
-
+			
 class PongBall(Widget):
 
 	velocity_x = NumericProperty(0)
@@ -25,7 +28,6 @@ class PongBall(Widget):
 	def move(self):
 		self.pos = Vector(*self.velocity) + self.pos
 
-		
 class PongGame(Widget):
 
 	ball = ObjectProperty(None)
@@ -52,12 +54,11 @@ class PongGame(Widget):
 			self.player1.score += 1
 			self.serv_ball(vel=(4,0))
 			
-	def on_touch_move(self, touch)
+	def on_touch_move(self, touch):
 		if touch.x < self.width /3:
 			self.player1.center_y = touch.y
 		if touche.x > self.width - self.width /3:
 			self.player2.center_y = touch.y
-
 
 class PongApp(App):
 
